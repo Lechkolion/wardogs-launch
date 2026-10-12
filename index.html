@@ -1210,8 +1210,8 @@ section>h2 .bi,section>h2 .bix{font-size:.82em}
 .tzb{fill:var(--ink)}
 .tzl{stroke:var(--ink);stroke-width:1.5;stroke-dasharray:4 4;opacity:.75}
 .tzh{fill:transparent}
-.hpt.on .tzh,.hpt:focus .tzh{fill:var(--gold-soft);opacity:.8}
-.hpt.on .tzb,.hpt:focus .tzb{fill:var(--gold)}
+.hpt.on .tzh,.hpt:focus-visible .tzh{fill:var(--gold-soft);opacity:.8}
+.hpt.on .tzb,.hpt:focus-visible .tzb{fill:var(--gold)}
 
 /* EN/KR switch */
 .lang{position:fixed;top:12px;right:12px;z-index:60;display:flex;gap:2px;padding:3px;background:var(--page);border:1px solid var(--line);border-radius:999px;box-shadow:0 2px 10px rgba(0,0,0,.08)}
@@ -2140,7 +2140,7 @@ html:lang(ko) .badge{text-transform:none;letter-spacing:0}
   }
   let cur = null;
   const T = '.hpin[data-pin], .hpt[data-tip]';
-  function show(el, x, y){ cur = el; el.classList.add('on'); tip.innerHTML = html(el); tip.style.opacity = 1; place(x, y); }
+  function show(el, x, y){ if (cur && cur !== el) cur.classList.remove('on'); cur = el; el.classList.add('on'); tip.innerHTML = html(el); tip.style.opacity = 1; place(x, y); }
   function hide(){ if (cur) cur.classList.remove('on'); cur = null; tip.style.opacity = 0; }
   document.addEventListener('mouseover', e => { const el = e.target.closest && e.target.closest(T); if (el && el !== cur) show(el, e.clientX, e.clientY); else if (!el && cur) hide(); });
   document.addEventListener('mousemove', e => { if (cur) place(e.clientX, e.clientY); });
